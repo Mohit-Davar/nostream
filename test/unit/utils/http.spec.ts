@@ -38,4 +38,13 @@ describe('getRemoteAddress', () => {
       )
     ).to.equal(socketAddress)
   })
+
+  it('throws when deprecated network.remote_ip_header is set', () => {
+    expect(
+      () => getRemoteAddress(
+        request,
+        { network: { 'remote_ip_header': header } } as any,
+      )
+    ).to.throw('Setting network.remote_ip_header is no longer supported. Use network.remoteIpHeader instead.')
+  })
 })
