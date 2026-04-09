@@ -183,15 +183,9 @@ export class PaymentsService implements IPaymentsService {
           admissionFeeAmount > 0n
           && amountPaidMsat >= admissionFeeAmount
         ) {
-          const date = new Date()
-          // TODO: Convert to stored func
-          await this.userRepository.upsert(
-            {
-              pubkey: invoice.pubkey,
-              isAdmitted: true,
-              tosAcceptedAt: date,
-              updatedAt: date,
-            },
+          await this.userRepository.admitUser(
+            invoice.pubkey,
+            new Date(),
             transaction.transaction,
           )
         }
